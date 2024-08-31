@@ -1,0 +1,121 @@
+/* src/MesmerizingOscillators.css */
+@import url('https://fonts.googleapis.com/css2?family=Monoton&display=swap');
+
+:root {
+    --background-color: black;
+    --reflect: below 15rem linear-gradient(transparent 70%, white);
+    --reflectB: below 10.5rem linear-gradient(white, transparent 100%);
+    --calcDelay: 
+}
+
+@property --pen {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
+@property --pen2 {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--background-color);
+}
+
+.scene {
+    position: relative;
+    max-width: 40rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    transform-style: preserve-3d;
+    perspective: 80rem;
+    perspective-origin: center 28rem;
+}
+
+h1 {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -5rem);
+    bottom: 0;
+    font-size: 7rem;
+    color: white;
+    mix-blend-mode: darken;
+    font-family: "Monoton", sans-serif;
+}
+
+.right,
+.left {
+    transform-style: preserve-3d;
+    perspective: 40rem;
+}
+
+.right i, .left i {
+    position: absolute;
+    display: block;
+    width: .5rem;
+    height: 32rem;
+    background: #FAC8C8;
+}
+
+.right i::before, .left i::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    border-radius: 50%;
+    width: 3.5rem;
+    aspect-ratio: 1;
+    background: var(--background-color);
+    border: .4rem solid #FAC8C8;
+}
+
+.left {
+    perspective-origin: 31rem 25rem;
+}
+
+.left i {
+    transform: translateZ(calc((var(--i) - 1) * -3rem)) translateX(calc((var(--i) - 1) * -4rem)) rotate(var(--pen));
+    transform-origin: top;
+    animation: pendulum 2s ease-in-out infinite alternate;
+    animation-delay: calc(exp(var(--i) / 40) * 1s); 
+}
+
+.right {
+    perspective-origin: -31rem 25rem;
+}
+
+.right i {
+    transform: translateZ(calc((var(--i) - 1) * -3rem)) translateX(calc((var(--i) - 1) * 4rem)) rotate(var(--pen2));
+    transform-origin: top;
+    animation: pendulum2 2s ease-in-out infinite alternate;
+    animation-delay: calc(exp(var(--i) / 40) * 1s);
+}
+
+@keyframes pendulum {
+    from {
+        --pen: -40deg;
+    }
+    to {
+        --pen: 40deg;
+    }
+}
+
+@keyframes pendulum2 {
+    from {
+        --pen2: 40deg;
+    }
+    to {
+        --pen2: -40deg;
+    }
+}
